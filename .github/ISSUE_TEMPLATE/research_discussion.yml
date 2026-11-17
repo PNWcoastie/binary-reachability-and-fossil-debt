@@ -1,0 +1,37 @@
+name: Research Discussion or Methodology Question
+description: Open a discussion on Stage 1.5 reachability auditing, the Class I/II/III taxonomy, or related literature.
+title: "[Discussion]: "
+labels: ["research-discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for engaging with **"Live Attack Surface, Dead Fossils, and Zombie Activation"**! Use this form to discuss the Stage 1.5 reachability methodology, case studies, or related work.
+  - type: dropdown
+    id: section
+    attributes:
+      label: Primary Paper Section / Topic
+      options:
+        - "Section 1 & 2: Stage 1.5 Four-Edge Reachability & Linker-Hygiene Model"
+        - "Section 3: Master 20-Bug Reachability & Class I / II / III Taxonomy"
+        - "Section 4: Deep-Dive Case Studies (Live Wired, Dead Fossils, Zombie Activation)"
+        - "Section 5: Android 16 Symbol Visibility (-fvisibility=hidden) & Hollow APEX Audit"
+        - "Section 6: Companion Crate Case Study (s9_blur_detection / SAM-BUG-10 & 10b)"
+        - "Section 7 & 8: OEM Remediation Framework & Related Work"
+    validations:
+      required: true
+  - type: textarea
+    id: question_or_comment
+    attributes:
+      label: Discussion Topic or Question
+      description: Share your question, comparison, or theoretical observation.
+      placeholder: "Describe the section, linkage edge, or related paper you would like to discuss..."
+    validations:
+      required: true
+  - type: checkboxes
+    id: clean_room_ack
+    attributes:
+      label: Clean-Room Policy Acknowledgment
+      options:
+        - label: "I confirm this issue does not attach proprietary third-party `.so` binaries or unredacted exploit payloads."
+          required: true

@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+title: "Live Attack Surface, Dead Fossils, and Zombie Activation: Multi-Edge Reachability and Linker-Hygiene Auditing of Stripped Android Vendor Binaries"
+message: "If you use this research paper, Stage 1.5 reachability methodology, or companion Safe Rust crate (s9_blur_detection), please cite it using the metadata below."
+type: software
+authors:
+  - family-names: Larrabee
+    given-names: Matthew
+    alias: PNWcoastie
+    affiliation: "Independent Systems & Security Researcher"
+repository-code: "https://github.com/PNWcoastie/binary-reachability-and-fossil-debt"
+license: MIT OR Apache-2.0
+version: 0.1.0
+date-released: "2026-11-16"
+keywords:
+  - rust
+  - borrow-checker
+  - binary-auditing
+  - reachability-analysis
+  - reverse-engineering
+  - android-security
+  - firmware-analysis
+  - memory-safety
+  - differential-testing
+  - linker-hygiene
+references:
+  - type: software
+    title: "The Borrow Checker as a Binary Auditor: Discovering Multi-Generation Android Firmware Defects via #![forbid(unsafe_code)] Safe Rust Reconstruction"
+    authors:
+      - family-names: Larrabee
+        given-names: Matthew
+    year: 2026
+    doi: 10.5281/zenodo.24261883
+    url: "https://doi.org/10.5281/zenodo.24261883"
+abstract: >-
+  Follow-up study to "The Borrow Checker as a Binary Auditor" (DOI: 10.5281/zenodo.24261883)
+  introducing Stage 1.5 Multi-Edge Reachability and Linker-Hygiene Auditing across 53 stripped
+  AArch64 ELF binaries (28 Samsung Galaxy S9 baseline binaries, 7 Galaxy S25 Ultra Android 16
+  binaries, and 18 Galaxy S26 Ultra Android 16 binaries plus a signed Biometric Face APEX).
+  Demonstrates why naive ELF DT_NEEDED/.dynsym scanners fail on mobile firmware due to four
+  dynamic linkage mechanisms (dlopen plugin tables, JNI RegisterNatives, .data.rel.ro vtables,
+  and linker namespaces) and five C++ ABI collision traps. Classifies all 20 previously
+  discovered C/C++ defects (SAM-BUG-01 through SAM-BUG-20) into Class I (Live Wired Production
+  Paths: 16/20), Class II (Intra-Binary Dead Fossils & Cloned Inlines), and Class III
+  (Cross-Generation Zombie Activation, exemplified by SAM-BUG-15 transitioning from an uncalled
+  2018 S9 export to a live 2026 S26 Ultra fastJpegDecode callsite). Quantifies pervasive
+  -fvisibility=hidden omissions (90%-95% GLOBAL DEFAULT export bloat and 100% PLT interposition
+  in 16 of 18 S26 Ultra libraries) and includes the standalone #![forbid(unsafe_code)] Safe Rust
+  companion crate s9_blur_detection verified across 30,118 SplitMix64 + boundary FFI vectors (0 ULP,
+  1.18x-2.66x speedup).

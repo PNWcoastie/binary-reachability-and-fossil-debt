@@ -1,0 +1,31 @@
+{
+  "title": "Live Attack Surface, Dead Fossils, and Zombie Activation: Multi-Edge Reachability and Linker-Hygiene Auditing of Stripped Android Vendor Binaries",
+  "description": "Follow-up research paper (Part II of 'The Borrow Checker as a Binary Auditor', DOI: 10.5281/zenodo.24261883) and companion #![forbid(unsafe_code)] Safe Rust crate (s9_blur_detection, verified across 30,118 SplitMix64 and boundary FFI vectors with 0 ULP divergence and 1.18x-2.66x speedup). Introduces Stage 1.5 Multi-Edge Reachability and Linker-Hygiene Auditing across 53 AArch64 ELF binaries from Android 10 (SM-G960U) to Android 16 (SM-S938B and SM-S948B), classifying 20 C/C++ defects into Class I (Live Wired), Class II (Intra-Binary Dead Fossils), and Class III (Cross-Generation Zombie Activation), and quantifying pervasive -fvisibility=hidden omissions.",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Larrabee, Matthew",
+      "affiliation": "Independent Systems & Security Researcher"
+    }
+  ],
+  "keywords": [
+    "Rust",
+    "borrow checker",
+    "binary auditing",
+    "call-graph reachability",
+    "reverse engineering",
+    "Android security",
+    "AArch64",
+    "differential testing",
+    "memory safety",
+    "ELF linker hygiene"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.24261883",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    }
+  ]
+}

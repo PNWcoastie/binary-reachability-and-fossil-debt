@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions (General Q&A & Academic Exchange)
+    url: https://github.com/PNWcoastie/binary-reachability-and-fossil-debt/discussions
+    about: Ask open-ended questions or discuss Stage 1.5 reachability auditing and safe systems reconstruction.
+  - name: Security & Responsible Disclosure Policy (SECURITY.md)
+    url: https://github.com/PNWcoastie/binary-reachability-and-fossil-debt/blob/main/SECURITY.md
+    about: Please review our clean-room policy before reporting sensitive third-party binary vulnerabilities.

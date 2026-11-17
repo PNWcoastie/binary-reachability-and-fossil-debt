@@ -1,0 +1,28 @@
+[package]
+name = "s9_blur_detection"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["M. Larrabee <PNWcoastie>"]
+description = "Safe Rust (#![forbid(unsafe_code)]) reconstruction of Samsung Galaxy S9 camera multi-scale blur & low-texture detection DSP (libBlurDetection.camera.samsung.so) — Reference artifact for 'Binary Reachability and Fossil Debt'"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/PNWcoastie/binary-reachability-and-fossil-debt"
+readme = "README.md"
+keywords = ["binary-auditing", "safe-rust", "image-processing", "dsp", "aarch64"]
+categories = ["algorithms", "multimedia::images", "computer-vision"]
+
+[lib]
+name = "s9_blur_detection"
+path = "src/lib.rs"
+
+[dependencies]
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+todo = "deny"
+unimplemented = "deny"
+dbg_macro = "deny"
