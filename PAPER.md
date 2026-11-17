@@ -3,6 +3,7 @@
 **Author:** M. Larrabee (`PNWcoastie`), Independent Systems & Security Researcher  
 **Date:** November 2026  
 **Document Classification:** Public Research Release — Part II Follow-Up Study  
+**DOI (Part II):** [`10.5281/zenodo.24295305`](https://doi.org/10.5281/zenodo.24295305) (Concept DOI: [`10.5281/zenodo.24295304`](https://doi.org/10.5281/zenodo.24295304))  
 **Predecessor Study (Part I):** *The Borrow Checker as a Binary Auditor: Discovering Multi-Generation Android Firmware Defects via `#![forbid(unsafe_code)]` Safe Rust Reconstruction* ([`DOI: 10.5281/zenodo.24261883`](https://doi.org/10.5281/zenodo.24261883))  
 **Companion Artifact & Reference Crate:** [`PNWcoastie/binary-reachability-and-fossil-debt`](https://github.com/PNWcoastie/binary-reachability-and-fossil-debt) (`s9_blur_detection`)  
 **Target Ecosystems Evaluated (`53` AArch64 ELF64 Binaries + `1` Signed Biometric APEX):**

@@ -1,5 +1,6 @@
 # Live Attack Surface, Dead Fossils, and Zombie Activation (`s9_blur_detection`)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24295305.svg)](https://doi.org/10.5281/zenodo.24295305)
 [![Language: Safe Rust](https://img.shields.io/badge/rust-%23!%5Bforbid(unsafe__code)%5D-brightgreen.svg)](https://www.rust-lang.org/)
 [![Verification: 30,118 FFI Vectors](https://img.shields.io/badge/verify__rust__parity-30%2C118%20vectors%20(0%20ULP)-blue.svg)](./docs/STAGE3_4_PARITY_SCORECARD.md)
 [![Part I Predecessor DOI](https://img.shields.io/badge/Part%20I%20DOI-10.5281%2Fzenodo.24261883-informational.svg)](https://doi.org/10.5281/zenodo.24261883)
@@ -9,8 +10,9 @@ Official companion artifact and `#![forbid(unsafe_code)]` Safe Rust reference cr
 
 > **Live Attack Surface, Dead Fossils, and Zombie Activation: Multi-Edge Reachability and Linker-Hygiene Auditing of Stripped Android Vendor Binaries**  
 > **Author:** M. Larrabee (`PNWcoastie`), Independent Systems & Security Researcher (November 2026)  
+> **DOI (Part II):** [`10.5281/zenodo.24295305`](https://doi.org/10.5281/zenodo.24295305) (Concept DOI: [`10.5281/zenodo.24295304`](https://doi.org/10.5281/zenodo.24295304))  
 > **Predecessor Study (Part I):** [`DOI: 10.5281/zenodo.24261883`](https://doi.org/10.5281/zenodo.24261883) ([`PNWcoastie/borrow-checker-binary-auditor`](https://github.com/PNWcoastie/borrow-checker-binary-auditor))  
-> 📄 **[Read the Full Part II Research Paper (`PAPER.md`)](./PAPER.md)**
+> 📄 **[Read the Full Part II Research Paper (`PAPER.md`)](./PAPER.md)** | 🏛️ **[View on Zenodo](https://zenodo.org/records/24295305)**
 
 ---
 
@@ -57,6 +59,25 @@ cargo clippy --all-targets -- -D warnings
 
 # Generate rustdoc documentation
 cargo doc --no-deps
+```
+
+---
+
+## Citation & Zenodo Archival
+
+If you reference this Part II study, Stage 1.5 methodology, or `s9_blur_detection` crate, please cite [`CITATION.cff`](./CITATION.cff):
+
+```bibtex
+@misc{larrabee2026reachability,
+  author       = {Larrabee, Matthew},
+  title        = {{Live Attack Surface, Dead Fossils, and Zombie Activation: Multi-Edge Reachability and Linker-Hygiene Auditing of Stripped Android Vendor Binaries}},
+  year         = {2026},
+  month        = nov,
+  publisher    = {Zenodo},
+  version      = {v0.1.0},
+  doi          = {10.5281/zenodo.24295305},
+  url          = {https://doi.org/10.5281/zenodo.24295305}
+}
 ```
 
 ---
