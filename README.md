@@ -1,5 +1,6 @@
 # Live Attack Surface, Dead Fossils, and Zombie Activation (`s9_blur_detection`)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24295305.svg)](https://doi.org/10.5281/zenodo.24295305)
 [![Language: Safe Rust](https://img.shields.io/badge/rust-%23!%5Bforbid(unsafe__code)%5D-brightgreen.svg)](https://www.rust-lang.org/)
 [![Verification: 30,118 FFI Vectors](https://img.shields.io/badge/verify__rust__parity-30%2C118%20vectors%20(0%20ULP)-blue.svg)](./docs/STAGE3_4_PARITY_SCORECARD.md)
 [![Part I Predecessor DOI](https://img.shields.io/badge/Part%20I%20DOI-10.5281%2Fzenodo.24261883-informational.svg)](https://doi.org/10.5281/zenodo.24261883)
@@ -9,8 +10,9 @@ Official companion artifact and `#![forbid(unsafe_code)]` Safe Rust reference cr
 
 > **Live Attack Surface, Dead Fossils, and Zombie Activation: Multi-Edge Reachability and Linker-Hygiene Auditing of Stripped Android Vendor Binaries**  
 > **Author:** M. Larrabee (`PNWcoastie`), Independent Systems & Security Researcher (November 2026)  
+> **DOI (Part II):** [`10.5281/zenodo.24295305`](https://doi.org/10.5281/zenodo.24295305) (Concept DOI: [`10.5281/zenodo.24295304`](https://doi.org/10.5281/zenodo.24295304))  
 > **Predecessor Study (Part I):** [`DOI: 10.5281/zenodo.24261883`](https://doi.org/10.5281/zenodo.24261883) ([`PNWcoastie/borrow-checker-binary-auditor`](https://github.com/PNWcoastie/borrow-checker-binary-auditor))  
-> 📄 **[Read the Full Part II Research Paper (`PAPER.md`)](./PAPER.md)**
+> 📄 **[Read the Full Part II Research Paper (`PAPER.md`)](./PAPER.md)** | 🏛️ **[View on Zenodo](https://zenodo.org/records/24295305)**
 
 ---
 
@@ -24,7 +26,7 @@ This repository presents **Stage 1.5: Multi-Edge Binary Reachability and Linker-
    - **Why Naive `DT_NEEDED`/`.dynsym` Scanners Fail on Android:** Models the **4 Universal Dynamic-Linkage Edges** (`DT_NEEDED`/`.dynsym` `UND`, `.rodata`/XML `dlopen` plugin tables, `JNI` `Java_*` & `RegisterNatives` arrays in `.data`/`.relr.dyn`, and `.data.rel.ro` C++ vtables / `HMI` modules) while filtering out **5 C++ ABI Linker Collision Traps** (`_Znwm`/`_ZdlPv` NDK static-link collisions, weak `std::__1` `_ZTI*`/`_ZTV*` typeinfo collisions, statically linked `libyuv` collisions, sibling HAL callback collisions, and `.rodata` substring false positives).
    - **Class I — Live Wired Production Paths (`16 of 20` bugs):** Unbroken intra-binary and cross-binary call chains from public `JNI_OnLoad`, `Java_*`, `HMI`, and C factory entry points directly to the vulnerable instruction site.
    - **Class II — Intra-Binary Dead Fossils & Cloned Inlines (`SAM-BUG-19`, half of `SAM-BUG-12`, and the `ButterworthFilter` subgraph of `SAM-BUG-11`):** Exported `GLOBAL DEFAULT` functions with `0` callers left behind when developers inlined or multithreaded the code (`libsrib_outfocus.camera.samsung.so`) while copying the exact same unguarded division bugs into the live threaded clones.
-   - **Class III — Cross-Generation "Zombie Activation" (`SAM-BUG-15` in `libsecimaging_pdk.camera.samsung.so`):** Empirical proof that Class II dead functions are latent landmines: `_Z8get_SIZEPKhRiS1_` (`0x1a654`) had `0` callers on the 2018 Galaxy S9, but was refactored into `_Z8get_SIZEPKhiRiS1_` (`0x34dac`) and wired directly into the live `decodeFromMemory` $\to$ `fastJpegDecode` hot path (`0x35fdc`) on the 2025/2026 Galaxy S25 Ultra and S26 Ultra, truncating a 64-bit `size_t` into a 32-bit signed `int`.
+   - **Class III — Cross-Generation "Zombie Activation" (`SAM-BUG-15` in `libsecimaging_pdk.camera.samsung.so`):** Empirical proof that Class II dead functions are latent landmines: `_Z8get_SIZEPKhRiS1_` (`0x1a654`) had `0` callers on the 2018 Galaxy S9, but was refactored into `_Z8get_SIZEPKhiRiS1_` (`0x34dac`) and wired directly into the live `decodeFromMemory` → `fastJpegDecode` hot path (`0x35fdc`) on the 2025/2026 Galaxy S25 Ultra and S26 Ultra, truncating a 64-bit `size_t` into a 32-bit signed `int`.
    - **Android 16 Symbol-Visibility & APEX Forensics:** Proves that **16 of 18 evaluated S26 Ultra libraries omit `-fvisibility=hidden`** (`90%–95%` `GLOBAL DEFAULT` export bloat; `100%` of intra-binary calls routed through `.plt` stubs), identifies duplicate `2.48 MB` copies of `libsrib_humanaware_engine.camera.samsung.so` across `/system` and `/vendor`, and shows that `com.samsung.android.biometrics.face.signed.apex` contains an empty `apex_payload.img` stub (`0` `.so` files).
 2. **[`src/lib.rs`](./src/lib.rs):** Standalone, zero-dependency `#![forbid(unsafe_code)]` Safe Rust reconstruction (`s9_blur_detection`) of `libBlurDetection.camera.samsung.so` (`SHA-256: 07baf5e21a19cd1c53ab61aa47c19949da47e1bbbeb66f855a67e2b2c19d5615`), implementing:
    - [`get_dif_lt`](./src/lib.rs#L28-L74) (`0x0fc8`) & [`get_cnt_lt`](./src/lib.rs#L84-L107) (`0x138c`): 1st-order directional gradient differences, 2-tap local maximum filtering, and `4×4` low-texture block counting.
@@ -57,6 +59,25 @@ cargo clippy --all-targets -- -D warnings
 
 # Generate rustdoc documentation
 cargo doc --no-deps
+```
+
+---
+
+## Citation & Zenodo Archival
+
+If you reference this Part II study, Stage 1.5 methodology, or `s9_blur_detection` crate, please cite [`CITATION.cff`](./CITATION.cff):
+
+```bibtex
+@misc{larrabee2026reachability,
+  author       = {Larrabee, Matthew},
+  title        = {{Live Attack Surface, Dead Fossils, and Zombie Activation: Multi-Edge Reachability and Linker-Hygiene Auditing of Stripped Android Vendor Binaries}},
+  year         = {2026},
+  month        = nov,
+  publisher    = {Zenodo},
+  version      = {v0.1.0},
+  doi          = {10.5281/zenodo.24295305},
+  url          = {https://doi.org/10.5281/zenodo.24295305}
+}
 ```
 
 ---

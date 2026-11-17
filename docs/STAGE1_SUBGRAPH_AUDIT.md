@@ -67,25 +67,25 @@ flowchart TD
 
 ### 5.1 `_Z10get_dif_ltPhiiiS_` (`0x0fc8`)
 - **Pass 1 — First-Order Absolute Differences (`0x1034..0x12cc`):**
-  For each `y in 0..height_lt` and `x in 0..(width_lt - 1)`:
-  $$\text{dx\_buf}[y \cdot \text{width\_lt} + x] = \left|\text{src}[y \cdot \text{stride} + x] - \text{src}[y \cdot \text{stride} + x + 1]\right|$$
-  $$\text{dy\_buf}[y \cdot \text{width\_lt} + x] = \left|\text{src}[y \cdot \text{stride} + x] - \text{src}[(y + 1) \cdot \text{stride} + x]\right|$$
+  For each `y in 0..height_lt` and `x in 0..(width_lt - 1)` (where $W_{\mathrm{lt}} = \mathrm{width\_lt}$):
+  $$\mathrm{dx}_{\mathrm{buf}}[y \cdot W_{\mathrm{lt}} + x] = \left|\mathrm{src}[y \cdot \mathrm{stride} + x] - \mathrm{src}[y \cdot \mathrm{stride} + x + 1]\right|$$
+  $$\mathrm{dy}_{\mathrm{buf}}[y \cdot W_{\mathrm{lt}} + x] = \left|\mathrm{src}[y \cdot \mathrm{stride} + x] - \mathrm{src}[(y + 1) \cdot \mathrm{stride} + x]\right|$$
 - **Pass 2 — 2-Tap Directional Maximum Filter (`0x12d0..0x1364`):**
   For each `y in 0..(height_lt - 1)` and `x in 0..(width_lt - 1)`:
-  $$\text{dx\_buf}[y \cdot \text{width\_lt} + x] = \max\left(\text{dx\_buf}[y \cdot \text{width\_lt} + x],\; \text{dx\_buf}[y \cdot \text{width\_lt} + x + 1]\right)$$
-  $$\text{dy\_buf}[y \cdot \text{width\_lt} + x] = \max\left(\text{dy\_buf}[y \cdot \text{width\_lt} + x],\; \text{dy\_buf}[(y + 1) \cdot \text{width\_lt} + x]\right)$$
+  $$\mathrm{dx}_{\mathrm{buf}}[y \cdot W_{\mathrm{lt}} + x] = \max\left(\mathrm{dx}_{\mathrm{buf}}[y \cdot W_{\mathrm{lt}} + x],\; \mathrm{dx}_{\mathrm{buf}}[y \cdot W_{\mathrm{lt}} + x + 1]\right)$$
+  $$\mathrm{dy}_{\mathrm{buf}}[y \cdot W_{\mathrm{lt}} + x] = \max\left(\mathrm{dy}_{\mathrm{buf}}[y \cdot W_{\mathrm{lt}} + x],\; \mathrm{dy}_{\mathrm{buf}}[(y + 1) \cdot W_{\mathrm{lt}} + x]\right)$$
 
 ### 5.2 `_Z10get_cnt_ltPhS_iiiPiS0_S0_S0_` (`0x138c`)
 For each `4×4` block `(by, bx)` in `0..blocks_y × 0..blocks_x`:
-$$S_x = \sum_{r=0}^{3} \sum_{c=0}^{3} \text{dx\_buf}[(4 \cdot by + r) \cdot \text{stride\_lt} + (4 \cdot bx + c)], \quad S_y = \sum_{r=0}^{3} \sum_{c=0}^{3} \text{dy\_buf}[(4 \cdot by + r) \cdot \text{stride\_lt} + (4 \cdot bx + c)]$$
+$$S_x = \sum_{r=0}^{3} \sum_{c=0}^{3} \mathrm{dx}_{\mathrm{buf}}[(4 \cdot by + r) \cdot W_{\mathrm{lt}} + (4 \cdot bx + c)], \quad S_y = \sum_{r=0}^{3} \sum_{c=0}^{3} \mathrm{dy}_{\mathrm{buf}}[(4 \cdot by + r) \cdot W_{\mathrm{lt}} + (4 \cdot bx + c)]$$
 Increments `cnt_x` when `(int32_t)((uint32_t)S_x << 16) < (40 << 16)` and `cnt_y` when `(int32_t)((uint32_t)S_y << 16) < (40 << 16)`.
 
 ### 5.3 `get_blur_val` (`0x1710`)
 - **Multi-Scale Residual Planes (`0x1754..0x1908`):**
   For `y in 4..(height - 5)` and `x in 4..(width - 5)`:
-  $$d_{h1} = |\text{img}[y, x] - \text{img}[y, x+1]|, \quad d_{v1} = |\text{img}[y, x] - \text{img}[y+1, x]|$$
-  $$d_{h9} = |\text{img}[y, x+5] - \text{img}[y, x-4]|, \quad d_{v9} = |\text{img}[y+5, x] - \text{img}[y-4, x]|$$
-  $$\text{buf\_v}[(y - 4) \cdot (\text{width} - 9) + (x - 4)] = \max\left(0,\; 9 \cdot (d_{v1} \ \& \ 0\text{xff}) - d_{v9}\right)$$
-  $$\text{buf\_h}[(y - 4) \cdot (\text{width} - 9) + (x - 4)] = \max\left(0,\; 9 \cdot (d_{h1} \ \& \ 0\text{xff}) - d_{h9}\right)$$
+  $$d_{h1} = |\mathrm{img}[y, x] - \mathrm{img}[y, x+1]|, \quad d_{v1} = |\mathrm{img}[y, x] - \mathrm{img}[y+1, x]|$$
+  $$d_{h9} = |\mathrm{img}[y, x+5] - \mathrm{img}[y, x-4]|, \quad d_{v9} = |\mathrm{img}[y+5, x] - \mathrm{img}[y-4, x]|$$
+  $$\mathrm{buf}_v[(y - 4) \cdot (\mathrm{width} - 9) + (x - 4)] = \max\left(0,\; 9 \cdot d_{v1} - d_{v9}\right)$$
+  $$\mathrm{buf}_h[(y - 4) \cdot (\mathrm{width} - 9) + (x - 4)] = \max\left(0,\; 9 \cdot d_{h1} - d_{h9}\right)$$
 - **`16×8` Macroblock Sharpness Ratio Accumulation (`0x190c..0x1be4`):**
   Iterates `by` from `5` to `height - 21` (step `16`) and `bx` from `5` to `width - 21` (step `16`), accumulating `S_v1`, `S_h1`, `R_v`, and `R_h` over each `16×8` macroblock (`r = 15..0`, `c = 0..7`). Updates `ratio_v = 1.0 - R_v / (9.0 * S_v1)` (when `S_v1 != 0`) and adds `ratio_v` to `acc_v` when `((uint32_t)(S_v1 - 400) >> 4) < 475u` (and analogously for horizontal gradients). Returns `(int)(final_ratio * 100.0)`.
